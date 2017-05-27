@@ -1,0 +1,11 @@
+#!/bin/bash
+
+PUBLISHED_DIR=~/Pictures/Published
+FULLSIZE_DIR=$PUBLISHED_DIR/fullsize
+LARGE_DIR=$PUBLISHED_DIR/large
+MEDIUM_DIR=$PUBLISHED_DIR/medium
+THUMB_DIR=$PUBLISHED_DIR/thumbs
+
+echo $LARGE_DIR
+echo $MEDIUM_DIR
+echo $THUMB_DIR

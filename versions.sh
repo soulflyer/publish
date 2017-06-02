@@ -2,8 +2,11 @@
 
 . ./setup.sh
 
-echo "Fullsize dir is  $FULLSIZE_DIR"
-TESTFILE="/Users/iain/Pictures/Published/fullsize/2017/05/11-testproj/IMG.jpg"
-#TESTFILE=$(stat -f "%N" $TESTFILE)
-FULLSIZEDIR=$(stat -f %N $FULLSIZEDIR)
-echo $TESTFILE | sed s~$FULLSIZE_DIR~~
+TESTFILE=$1
+
+#echo $TESTFILE | sed s~$FULLSIZE_DIR~~ | sed s~^/~~
+SUBPATH=${TESTFILE##$FULLSIZE_DIR/}
+DIRNAME=$(dirname $SUBPATH)
+FILENAME=$(basename $SUBPATH)
+echo "Sub directory is $DIRNAME"
+echo "File is $FILENAME"

@@ -6,7 +6,22 @@ TESTFILE=$1
 
 #echo $TESTFILE | sed s~$FULLSIZE_DIR~~ | sed s~^/~~
 SUBPATH=${TESTFILE##$FULLSIZE_DIR/}
-DIRNAME=$(dirname $SUBPATH)
-FILENAME=$(basename $SUBPATH)
-echo "Sub directory is $DIRNAME"
-echo "File is $FILENAME"
+#DIRNAME=$(dirname $SUBPATH)
+#FILENAME=$(basename $SUBPATH)
+
+MEDIUM=$MEDIUM_DIR/$SUBPATH
+LARGE=$LARGE_DIR/$SUBPATH
+FULLSIZE=$FULLSIZE_DIR/$SUBPATH
+THUMB=$THUMB_DIR/$SUBPATH
+
+if [ "$FULLSIZE" -nt "$MEDIUM" ]
+then
+    echo "Versions of $SUBPATH are out of date"
+    convert $FULLSIZE -resize 1024x1024 $MEDIUM
+    ~/bin/add-watermark $MEDIUM
+    convert $FULLSIZE -resize 2048x2048 $LARGE
+    ~/bin/add-watermark $LARGE
+    convert $FULLSIZE -resize 160x160 $THUMB
+else
+    echo "$SUBPATH is up to date"
+fi

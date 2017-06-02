@@ -2,6 +2,9 @@
 
 . ./setup.sh
 
+while (( $# ))
+do
+
 TESTFILE=$1
 
 #echo $TESTFILE | sed s~$FULLSIZE_DIR~~ | sed s~^/~~
@@ -14,6 +17,7 @@ LARGE=$LARGE_DIR/$SUBPATH
 FULLSIZE=$FULLSIZE_DIR/$SUBPATH
 SMALL=$SMALL_DIR/$SUBPATH
 THUMB=$THUMB_DIR/$SUBPATH
+
 
 if [ ! -d $(dirname $MEDIUM) ]
 then
@@ -36,3 +40,5 @@ then
 else
     echo "$SUBPATH is up to date"
 fi
+shift
+done

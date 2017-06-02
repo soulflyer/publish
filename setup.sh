@@ -1,11 +1,11 @@
 #!/bin/bash
 
-PUBLISHED_DIR=~/Pictures/Published
-FULLSIZE_DIR=$PUBLISHED_DIR/fullsize
-LARGE_DIR=$PUBLISHED_DIR/large
-MEDIUM_DIR=$PUBLISHED_DIR/medium
-THUMB_DIR=$PUBLISHED_DIR/thumbs
+export PUBLISHED_DIR=~/Pictures/Published
+export FULLSIZE_DIR=$PUBLISHED_DIR/fullsize
+export LARGE_DIR=$PUBLISHED_DIR/large
+export MEDIUM_DIR=$PUBLISHED_DIR/medium
+export THUMB_DIR=$PUBLISHED_DIR/thumbs
 
-echo $LARGE_DIR
-echo $MEDIUM_DIR
-echo $THUMB_DIR
+#export LAST_RUN_FILE=$PUBLISHED_DIR/.publish-last-run
+export LAST_RUN_FILE=$FULLSIZE_DIR/digikam4.db
+export FIND_MIN_DEPTH=4

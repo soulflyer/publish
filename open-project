@@ -1,0 +1,94 @@
+#!/usr/bin/osascript
+# given a yyyy/month/projectname string representing an aperture project, this
+# script opens the project in aperture and the various files used by it in finder.
+
+on run argv
+    set masterspath to "/Users/iain/Pictures/Photos/"
+    set exportedpath to "/Users/iain/Pictures/Published/"
+    set pathname to item 1 of argv
+    set master   to masterspath  & pathname
+    set thumbs   to exportedpath & "thumbs/"   & pathname
+    set medium   to exportedpath & "medium/"   & pathname
+    set large    to exportedpath & "large/"    & pathname
+    set fullsize to exportedpath & "fullsize/" & pathname
+
+    -- tell application "Aperture"
+    --     activate
+    -- end tell
+
+    -- set pathparts to splitstring(pathname,"/")
+    -- set theyear to item 1 of pathparts
+    -- set monthinteger to item 2 of pathparts
+    -- set themonth to integertomonthstring(monthinteger)
+    -- set theproject to item 3 of pathparts
+
+    set thecommand to "check-images /Users/iain/Pictures/Published/large | grep \"" & pathname & "\""
+
+    try
+        set thefiles to every paragraph of (do shell script thecommand)
+        log "Project " & pathname & " has problems with:"
+        repeat with thefile in thefiles
+            log thefile
+        end
+    on error
+        log "Project " & pathname & " OK."
+    end try
+
+    try
+    --    log "trying..................."
+        set themasters   to (POSIX file master)   as alias
+        set thethumbs    to (POSIX file thumbs)   as alias
+        set themediums   to (POSIX file medium)   as alias
+        set thelarges    to (POSIX file large)    as alias
+        set thefullsizes to (POSIX file fullsize) as alias
+    --    log "Found the directories..."
+
+        tell application "Finder"
+            activate
+            open themasters
+            set bounds of front window to {400, 0, 1400, 800}
+            my opennewtab()
+            set target of front window to thethumbs
+            my opennewtab()
+            set target of front window to themediums
+            my opennewtab()
+            set target of front window to thelarges
+            my opennewtab()
+            set target of front window to thefullsizes
+        end tell
+
+    on error
+        log "Project " & pathname & " not exported?"
+    end try
+
+    -- tell application "Aperture"
+    --     tell folder theyear
+    --         tell folder themonth
+    --             reveal project theproject
+    --         end tell
+    --     end tell
+    -- end tell
+    return
+end run
+
+on opennewtab()
+    tell application "System Events"
+        tell process "Finder"
+            keystroke "t" using command down
+        end tell
+    end tell
+end opentab
+
+on splitstring(aString, delimiter)
+    set retVal to {}
+    set prevDelimiter to AppleScript's text item delimiters
+    set AppleScript's text item delimiters to {delimiter}
+    set retVal to every text item of aString
+    set AppleScript's text item delimiters to prevDelimiter
+    return retVal
+end splitstring
+
+on integertomonthstring(mn)
+    set monthss to {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"}
+    return item mn of monthss
+end integerToMonthString:

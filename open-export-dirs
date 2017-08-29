@@ -1,0 +1,63 @@
+#!/usr/bin/osascript
+# given a yyyy/month/projectname string representing an aperture project, this
+# script opens the project in aperture and the various files used by it in finder.
+
+on run argv
+    set masterspath to "/Users/iain/Pictures/Photos/"
+    set exportedpath to "/Users/iain/Pictures/Published/"
+    set master   to masterspath
+    set thumbs   to exportedpath & "thumbs/"
+    set medium   to exportedpath & "medium/"
+    set large    to exportedpath & "large/"
+    set fullsize to exportedpath & "fullsize/"
+    set json     to exportedpath & "json/"
+    set zip      to exportedpath & "zip/"
+    set small    to exportedpath & "small/"
+
+try
+    --    log "trying..................."
+        set themasters   to (POSIX file master)   as alias
+        set thefullsizes to (POSIX file fullsize) as alias
+        set thelarges    to (POSIX file large)    as alias
+        set themediums   to (POSIX file medium)   as alias
+        set thethumbs    to (POSIX file thumbs)   as alias
+        set thejsons     to (POSIX file json)     as alias
+        set thezips      to (POSIX file zip)      as alias
+        set thesmalls    to (POSIX file small)    as alias
+
+    --    log "Found the directories..."
+
+        tell application "Finder"
+            activate
+            open themasters
+            set bounds of front window to {40, 0, 1400, 800}
+            my opennewtab()
+            set target of front window to thethumbs
+            my opennewtab()
+            set target of front window to thesmalls
+            my opennewtab()
+            set target of front window to themediums
+            my opennewtab()
+            set target of front window to thelarges
+            my opennewtab()
+            set target of front window to thefullsizes
+            my opennewtab()
+            set target of front window to thejsons
+            my opennewtab()
+            set target of front window to thezips
+        end tell
+
+    on error
+        log "Project " & " not exported?"
+    end try
+
+return
+end run
+
+on opennewtab()
+    tell application "System Events"
+        tell process "Finder"
+            keystroke "t" using command down
+        end tell
+    end tell
+end opentab

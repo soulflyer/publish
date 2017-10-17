@@ -6,6 +6,7 @@ SMALL_SIZE="512x512"
 MEDIUM_SIZE="1024x1024"
 LARGE_SIZE="2048x2048"
 PHOTODIR="/Users/iain/Pictures/Published"
+MASTERSDIR="/Users/iain/Pictures/Photos"
 
 #Source folder defaults to current dir unless there is a parameter
 #FILE_FOLDER="."
@@ -87,6 +88,10 @@ done
 COMMAND_STRING="$COMMAND_STRING $OUTPUT_FOLDER/$FILE_ROOT.gif"
 #echo $COMMAND_STRING
 eval $COMMAND_STRING
+if ! [[ $PROJECT == "" ]]
+then
+    cp $OUTPUT_FOLDER/$FILE_ROOT.gif $MASTERSDIR/$PROJECT
+fi
 
 #Convert the fullsize gif to a thumbnail
 if [ $THUMB_OUTPUT ]

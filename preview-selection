@@ -1,0 +1,9 @@
+#!/usr/bin/osascript
+-- Returns a list of pics opened in preview. Can use Shift-Command-W to remove unwanted pics
+set selected to {}
+tell application "Preview"
+	repeat with doc in documents
+		set end of selected to path of doc
+	end repeat
+end tell
+selected

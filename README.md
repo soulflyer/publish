@@ -5,9 +5,11 @@ It should automatically detect when an image is newer than it's published versio
 
 ## versions
 
-    version image1 [image2 image3 ....]
+    version [-x] [-d directory] [image1 image2 image3 ....]
 
-If the fullsize version of an image is newer than the medium version then the small medium large and thumb sized versions are re-created from the fullsize version. The images can be given as a full or partial path. The locations of the various versions are set in the file: setup.sh . They will also be read from the command line (Not yet implemented).
+If the fullsize version of an image is newer than the medium version then the small medium large and thumb sized versions are re-created from the fullsize version. The images can be given as a full or partial path. The -d option can be used to process all the pics in a specified directory. -x suppresses the write to the db, useful if the metadata hasn't changed and speed is important.
+
+The locations of the various versions are set in the file: setup.sh . They will also be read from the command line (Not yet implemented).
 
 ## make-gif
 

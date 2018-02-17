@@ -16,3 +16,8 @@ EOF
 done
 shift $((OPTIND-1))
 echo "$*"
+while (( $# ))
+do
+    echo $#
+    shift
+done

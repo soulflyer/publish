@@ -49,6 +49,7 @@ then
     convert $FULLSIZE -resize 512x512 $SMALL
     ~/bin/add-watermark $SMALL
     convert $FULLSIZE -resize 160x160 $THUMB
+    ~/bin/save-meta $FULLSIZE
 else
     echo "$SUBPATH is up to date"
 fi

@@ -3,6 +3,8 @@
 publish takes care of creating smaller watermarked copies of images.
 It should automatically detect when an image is newer than it's published versions and recreate them.
 
+## TODO
+
 ## versions
 
     version [-x] [-d directory] [image1 image2 image3 ....]
@@ -21,3 +23,14 @@ Takes a series of images and turns them into an animated gif. Can take a list of
 
 -p specifies a project and creates versions of the gif in each of the thumbs, small, medium and large directories for that project, as well as sending the default gif to the fullsize folder.
 
+## preview-selection
+lists all the pics currently displayed in Preview. Useful for selecting pics to pass to other commands. (Use shift-cmd-w to selectively close pics in preview)
+
+## open-project (deprecated)
+Opens folders for a given project in finder tabs.
+
+## open-export-dirs (deprecated)
+Similar to open project but requires no parameter and opens the root level of each of the main photo directories.
+
+## utils
+Some scripts used to create extra directories of photos. Originally there were only fullsize, large and thumbs. medium and small were both added later and utils is included here only as illustration.

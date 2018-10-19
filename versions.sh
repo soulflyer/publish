@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# TODO Add option to check DB and only create versions of images that are rated
+# above a certain value.
+
+
 . /Users/iain/Code/publish/setup.sh
 
 function make-directories {
@@ -40,7 +44,7 @@ function convert-pic {
     local SMALL=$SMALL_DIR/$SUBPATH
     local THUMB=$THUMB_DIR/$SUBPATH
 
-    echo "SUBPATH is $SUBPATH"
+    # echo "SUBPATH is $SUBPATH"
     if [[ "$SUBPATH" == *.jpg ]]
     then
         if [ "$FULLSIZE" -nt "$MEDIUM" ]

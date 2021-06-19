@@ -47,7 +47,7 @@ function convert-pic {
     # echo "SUBPATH is $SUBPATH"
     if [[ "$SUBPATH" == *.jpg ]]
     then
-        if [ "$FULLSIZE" -nt "$MEDIUM" ]
+        if [ "$FULLSIZE" -nt "$MEDIUM" ] || [ "$FORCE" == "TRUE"  ]
         then
             echo "Versions of $SUBPATH are out of date"
             convert $FULLSIZE -resize 1024x1024 $MEDIUM
@@ -66,17 +66,22 @@ function convert-pic {
 }
 
 NO_META="FALSE"
+FORCE="FALSE"
 DIRECTORY=""
-while getopts 'xhd:' OPTION
+
+while getopts 'xfhd:' OPTION
 do
     case $OPTION in
         x) NO_META="TRUE"
            ;;
         d) DIRECTORY=$OPTARG
            ;;
+        f) FORCE="TRUE"
+           ;;
         h) CAT <<EOF
-Use versions -x to suppress write to db.
-
+-x to suppress write to db.
+-d to process a directory.
+-f to force recreation even if the fullsize version is not newer
 EOF
            exit 2
            ;;
@@ -84,6 +89,7 @@ EOF
 done
 
 echo "NO_META is " $NO_META
+echo "Force is " $FORCE
 shift $((OPTIND-1))
 
 # Process a directory of pics if one is specified.
@@ -94,7 +100,9 @@ then
     make-directories $DIRECTORY
     # Looks like we are removing the first part of the path then replacing it
     # but $DIRECTORY may or may not already have the FULLSIZE_DIR prefix
-    SUBPATH=${DIRECTORY##FULLSIZE_DIR}
+    echo "fullsize_dir is" $FULLSIZE_DIR
+    SUBPATH=${DIRECTORY##$FULLSIZE_DIR}
+    echo "subpath is " $SUBPATH
     FULLSIZE=$FULLSIZE_DIR/$SUBPATH
 
     if [ $NO_META == "FALSE" ]
@@ -118,10 +126,10 @@ do
     make-directories $(dirname $SUBPATH)
 
     if [ $NO_META = "FALSE" ]
-         then
-            ~/bin/save-meta $FULLSIZE_DIR/$SUBPATH
-         else
-             echo "$SUBPATH not added to db"
-         fi
+    then
+        ~/bin/save-meta $FULLSIZE_DIR/$SUBPATH
+    else
+        echo "$SUBPATH not added to db"
+    fi
     shift
 done

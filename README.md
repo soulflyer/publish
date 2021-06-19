@@ -5,6 +5,8 @@ It should automatically detect when an image is newer than it's published versio
 
 ## TODO
 
+versions doesn't handle a full path properly, only yyyy/mm/projectname
+
 ## versions
 
     version [-x] [-d directory] [image1 image2 image3 ....]
